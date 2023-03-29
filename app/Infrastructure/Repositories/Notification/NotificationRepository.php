@@ -5,7 +5,7 @@ namespace App\Infrastructure\Repositories\Notification;
 use App\Domain\Entities\Notification\Notification;
 use App\Domain\Models\Notification as NotificationModel;
 
-class NotificationRepository
+class NotificationRepository implements INotificationRepository
 {
 
     public function create(Notification $notification)

@@ -8,13 +8,14 @@ use App\Domain\Entities\Notification\Status\Delivered;
 use App\Domain\Entities\Notification\Messages\PayeeTransactionSuccessNotification;
 use App\Domain\Entities\Notification\Messages\PayerTransactionSuccessNotification;
 use App\Domain\Entities\Transaction\Transaction;
+use App\Infrastructure\Repositories\Notification\INotificationRepository;
 use App\Infrastructure\Repositories\Notification\NotificationRepository;
 
-class NotificationService implements INotificationService
+class NotificationService
 {
     private $repository;
 
-    public function __construct(NotificationRepository $repository = new NotificationRepository)
+    public function __construct(INotificationRepository $repository = new NotificationRepository)
     {
         $this->repository = $repository;
     }
@@ -58,7 +59,7 @@ class NotificationService implements INotificationService
     {
         // bater no mock
         $this->repository->update(
-            $notification->id, 
+            $notification->getId(), 
             (new Delivered)->getValue()
         );
     }

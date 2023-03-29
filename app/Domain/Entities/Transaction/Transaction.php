@@ -17,6 +17,7 @@ class Transaction
 
     public function __construct(array $data)
     {
+        $this->setId($data['id'] ?? null);
         $this->setValue($data['value']);
         $this->setPayer($data['payer_id']);
         $this->setPayee($data['payee_id']);

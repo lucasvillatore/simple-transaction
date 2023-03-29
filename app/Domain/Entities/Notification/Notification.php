@@ -14,6 +14,7 @@ class Notification
 
     public function __construct(array $data)
     {
+        $this->setId($data['id'] ?? null);
         $this->setMessage($data['message']);
         $this->setStatus($data['status']);
         $this->setUserId($data['userId']);
@@ -39,7 +40,7 @@ class Notification
         return $this->userId;
     }
 
-    public function setId(int $id)
+    public function setId($id)
     {
         $this->id = $id;
     }

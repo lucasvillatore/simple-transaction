@@ -47,6 +47,7 @@ class UserServiceTest extends TestCase
         $user = $service->getUserById(1);
 
         $expected = new CommonUser([
+            'id' => 1,
             'name' => 'Lucas',
             'email' => 'lucas@gmail.com',
             'taxpayer_id' => '1234567890',
@@ -108,6 +109,7 @@ class UserServiceTest extends TestCase
         $service = (new Service(self::$repository));
 
         $user = new User([
+            'id' => 1,
             'name' => 'Teste',
             'taxpayer_id' => '12345678906',
             'email' => 'lucas5@gmail.com',
@@ -121,6 +123,7 @@ class UserServiceTest extends TestCase
         $received = $service->hasBalance($user, 100);
 
         $user = new User([
+            'id' => 2,
             'name' => 'Teste',
             'taxpayer_id' => '12345678906',
             'email' => 'lucas5@gmail.com',

@@ -5,8 +5,10 @@ namespace Tests\Unit\Services\Transaction\Validators;
 use App\Domain\Entities\Transaction\Transaction;
 use App\Domain\Entities\User\User;
 use App\Domain\Services\Transaction\Validators\UserTransactionService;
+use App\Domain\Services\User\UserService;
 use PHPUnit\Framework\TestCase;
 use Tests\Mock\Transaction\UserServiceMock;
+use Tests\Mock\User\UserRepositoryMock;
 
 class UserTransactionServiceTest extends TestCase
 {
@@ -15,7 +17,7 @@ class UserTransactionServiceTest extends TestCase
      */
     public function test_validate(): void
     {
-        $service = new UserTransactionService(new UserServiceMock);
+        $service = new UserTransactionService(new UserService(new UserRepositoryMock()));
 
         $user = new User([
             'name' => 'Lucas',

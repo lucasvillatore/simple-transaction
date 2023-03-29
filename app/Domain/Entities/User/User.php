@@ -48,6 +48,7 @@ class User
 
     public function __construct(array $data)
     {
+        $this->setId($data['id'] ?? null);
         $this->setName($data['name']);
         $this->setTaxPayerId($data['taxpayer_id']);
         $this->setEmail($data['email']);
@@ -61,7 +62,7 @@ class User
         return $this->id;
     }
 
-    public function setId(int $id)
+    public function setId($id)
     {
         $this->id = $id;
     }

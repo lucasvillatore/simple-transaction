@@ -7,22 +7,23 @@ use App\Domain\Entities\Transaction\Transaction;
 use App\Domain\Entities\User\Types\CommonUser;
 use App\Domain\Entities\User\Types\ShopkeeperUser;
 use App\Domain\Entities\User\User;
+use App\Domain\Services\Notification\NotificationService;
 use App\Domain\Services\Transaction\TransactionService;
 use App\Domain\Services\Transaction\Validators\ShopkeeperTransactionService;
 use App\Domain\Services\Transaction\Validators\UserTransactionService;
-
+use App\Domain\Services\User\UserService;
 use Tests\Mock\Transaction\TransactionRepositoryMock;
-use Tests\Mock\Transaction\UserServiceMock;
-use Tests\Mock\Transaction\NotificationServiceMock;
 
 use PHPUnit\Framework\TestCase;
+use Tests\Mock\Notification\NotificationRepositoryMock;
 use Tests\Mock\User\UserRepositoryMock;
 
 class TransactionServiceTest extends TestCase
 {
     private static $repository;
-    private static $userServiceMock;
-    private static $notificationServiceMock;
+    private static $userService;
+    private static $notificationService;
+    private static $notificationRepositoryMock;
     private static $userRepositoryMock;
 
     public static function setUpBeforeClass(): void
@@ -49,15 +50,16 @@ class TransactionServiceTest extends TestCase
                 'type' => 'shopkeeper'
             ])
         );
-
-        self::$userServiceMock = new UserServiceMock(self::$userRepositoryMock);
+        
+        self::$userService = new UserService(self::$userRepositoryMock);
         self::$repository = new TransactionRepositoryMock();
-        self::$notificationServiceMock = new NotificationServiceMock();
+        self::$notificationRepositoryMock = new NotificationRepositoryMock();
+        self::$notificationService = new NotificationService(self::$notificationRepositoryMock);
 
     }
     public function test_create()
     {
-        $service = new TransactionService(self::$repository, self::$userServiceMock, self::$notificationServiceMock);
+        $service = new TransactionService(self::$repository, self::$userService, self::$notificationService);
 
         $transaction = new Transaction([
             "value" => 10,
@@ -99,8 +101,8 @@ class TransactionServiceTest extends TestCase
 
         $service = new TransactionService(
             new TransactionRepositoryMock,
-            new UserServiceMock,
-            new NotificationServiceMock
+            self::$userService,
+            self::$notificationService
         );
 
         $received = $service->getTransactionValidatorService($userCommon);

@@ -6,14 +6,13 @@ use App\Domain\Entities\User\User;
 use App\Domain\Entities\Transaction\Transaction;
 use App\Domain\Services\Transaction\Validators\ITransactionValidator;
 use App\Domain\Exceptions\Transaction\UserHasNoBalanceException;
-use App\Domain\Services\User\IUserService;
 use App\Domain\Services\User\UserService;
 
 class UserTransactionService implements ITransactionValidator
 {
     private $service;
 
-    public function __construct(IUserService $service = new UserService())
+    public function __construct(UserService $service = new UserService())
     {
         $this->service = $service;
     }

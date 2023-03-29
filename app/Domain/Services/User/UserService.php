@@ -10,7 +10,7 @@ use App\Infrastructure\Repositories\User\IUserRepository;
 use App\Infrastructure\Repositories\User\UserRepository;
 use Exception;
 
-class UserService implements IUserService
+class UserService
 {
     private $repository;
 
