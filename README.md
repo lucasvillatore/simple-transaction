@@ -52,3 +52,12 @@ To run the tests:
   - create business dashboards
   - create alert configurations
   - health application monitoring
+
+
+## To do
+
+- refactor services
+- add integration tests
+- send requests to mocks
+  - when send notification
+  - when request external authorizer
