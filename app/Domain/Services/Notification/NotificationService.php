@@ -10,14 +10,18 @@ use App\Domain\Entities\Notification\Messages\PayerTransactionSuccessNotificatio
 use App\Domain\Entities\Transaction\Transaction;
 use App\Infrastructure\Repositories\Notification\INotificationRepository;
 use App\Infrastructure\Repositories\Notification\NotificationRepository;
+use Illuminate\Support\Facades\Http;
+use Exception;
 
 class NotificationService
 {
     private $repository;
+    private $url;
 
-    public function __construct(INotificationRepository $repository = new NotificationRepository)
+    public function __construct(INotificationRepository $repository = new NotificationRepository, $url)
     {
         $this->repository = $repository;
+        $this->url = $url;
     }
 
     public function notifyTransactions(Transaction $transaction)
@@ -57,7 +61,12 @@ class NotificationService
 
     public function send($notification)
     {
-        // bater no mock
+        $response = Http::timeout(10)
+                    ->post($this->url);
+
+        if (!$response->successful()) {
+            throw new Exception();
+        }
         $this->repository->update(
             $notification->getId(), 
             (new Delivered)->getValue()

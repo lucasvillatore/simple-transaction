@@ -14,7 +14,7 @@ use App\Domain\Services\Transaction\Validators\UserTransactionService;
 use App\Domain\Services\User\UserService;
 use Tests\Mock\Transaction\TransactionRepositoryMock;
 
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 use Tests\Mock\Notification\NotificationRepositoryMock;
 use Tests\Mock\User\UserRepositoryMock;
 
@@ -54,7 +54,7 @@ class TransactionServiceTest extends TestCase
         self::$userService = new UserService(self::$userRepositoryMock);
         self::$repository = new TransactionRepositoryMock();
         self::$notificationRepositoryMock = new NotificationRepositoryMock();
-        self::$notificationService = new NotificationService(self::$notificationRepositoryMock);
+        self::$notificationService = new NotificationService(self::$notificationRepositoryMock, "https://webhook.site/e82c9a70-34a8-43a9-b89d-15d5029c1cc7");
 
     }
     public function test_create()
