@@ -40,6 +40,11 @@ To run the tests:
 ```bash
 ```
 
+**Coverage**
+```bash
+php artisan test --coverage-html cover/
+```
+
 ## Improvement points
 
 - create API documentation
@@ -56,8 +61,8 @@ To run the tests:
 
 ## To do
 
-- refactor services
 - add integration tests
 - send requests to mocks
   - when send notification
   - when request external authorizer
+- generate coverage

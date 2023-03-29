@@ -21,6 +21,7 @@ class Transaction
         $this->setValue($data['value']);
         $this->setPayer($data['payer_id']);
         $this->setPayee($data['payee_id']);
+        $this->setStatus($data['status'] ?? null);
     }
 
     public function setId($id)
@@ -48,7 +49,7 @@ class Transaction
         return $this->payee;
     }
 
-    public function getStatus(): string
+    public function getStatus()
     {
         return $this->status;
     }
@@ -66,7 +67,7 @@ class Transaction
         $this->payee = $payee;
     }
 
-    public function setStatus(string $status): void
+    public function setStatus($status): void
     {
         $this->status = $status;
     }

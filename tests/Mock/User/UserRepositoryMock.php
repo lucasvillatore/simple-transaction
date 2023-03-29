@@ -19,6 +19,6 @@ class UserRepositoryMock implements IUserRepository
 
     public function fetchOneById(int $id)
     {
-        return $this->users[$id - 1];
+        return $this->users[$id - 1] ?? null;
     }
 }

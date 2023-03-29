@@ -5,7 +5,9 @@ namespace Tests\Unit\Services\User;
 use App\Domain\Entities\User\Types\CommonUser;
 use App\Domain\Entities\User\Types\ShopkeeperUser;
 use App\Domain\Entities\User\User;
+use App\Domain\Exceptions\User\UserNotFoundException;
 use App\Domain\Services\User\UserService as Service;
+use Exception;
 use PHPUnit\Framework\TestCase;
 use Tests\Mock\User\UserRepositoryMock;
 
@@ -57,6 +59,9 @@ class UserServiceTest extends TestCase
         ]);
 
         $this->assertEquals($expected, $user);
+
+        $this->expectException(UserNotFoundException::class);
+        $user = $service->getUserById(50);
     }
 
     public function test_create()
@@ -102,6 +107,17 @@ class UserServiceTest extends TestCase
         ]);
 
         $this->assertEquals($expected, $user);
+        
+        $this->expectException(Exception::class);
+        $user = new ShopkeeperUser([
+            'name' => 'Teste',
+            'taxpayer_id' => '12345678906',
+            'email' => 'lucas5@gmail.com',
+            'password' => 'senhaforte',
+            'balance' => 123,
+            'type' => 'type nao existente'
+        ]);
+        $user = $service->makeUser($user);
     }
 
     public function test_hasBalance()
