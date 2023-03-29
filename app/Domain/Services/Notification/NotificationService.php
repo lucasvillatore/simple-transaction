@@ -8,10 +8,10 @@ use App\Domain\Entities\Notification\Status\Delivered;
 use App\Domain\Entities\Notification\Messages\PayeeTransactionSuccessNotification;
 use App\Domain\Entities\Notification\Messages\PayerTransactionSuccessNotification;
 use App\Domain\Entities\Transaction\Transaction;
+use App\Domain\Exceptions\Notification\FailedToSendNotificationException;
 use App\Infrastructure\Repositories\Notification\INotificationRepository;
 use App\Infrastructure\Repositories\Notification\NotificationRepository;
 use Illuminate\Support\Facades\Http;
-use Exception;
 
 class NotificationService
 {
@@ -65,7 +65,7 @@ class NotificationService
                     ->post($this->url);
 
         if (!$response->successful()) {
-            throw new Exception();
+            throw new FailedToSendNotificationException();
         }
         $this->repository->update(
             $notification->getId(), 

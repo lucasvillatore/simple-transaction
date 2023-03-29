@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Exceptions\Transaction;
+namespace App\Domain\Exceptions\Notification;
 use Exception;
 use Throwable;
 

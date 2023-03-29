@@ -16,7 +16,12 @@ class NotificationRepository implements INotificationRepository
             'status' => $notification->getStatus(),
         ]);
 
-        return $notification;
+        return new Notification([
+            "message" => $notification->message,
+            "userId" => $notification->user_id,
+            "status" => $notification->status,
+            "id" => $notification->id
+        ]);
     }
 
     public function update($id, $status)
@@ -26,6 +31,11 @@ class NotificationRepository implements INotificationRepository
                             'status' => $status
                         ]);
 
-        return $notification;
+        return new Notification([
+            "message" => $notification->message,
+            "userId" => $notification->user_id,
+            "status" => $notification->status,
+            "id" => $notification->id
+        ]);
     }
 }
