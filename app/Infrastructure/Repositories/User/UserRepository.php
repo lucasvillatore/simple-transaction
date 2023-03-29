@@ -4,6 +4,7 @@ namespace App\Infrastructure\Repositories\User;
 
 use App\Domain\Entities\User\User;
 use App\Domain\Models\User as UserModel;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements IUserRepository
 {
@@ -15,7 +16,7 @@ class UserRepository implements IUserRepository
             'taxpayer_id' => $user->getTaxPayerId(),
             'type' => $user->getType(),
             'email' => $user->getEmail(),
-            'password' => $user->getPassword(),
+            'password' => Hash::make($user->getPassword()),
             'balance' => $user->getBalance()
         ]);
 
