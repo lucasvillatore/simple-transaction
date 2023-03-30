@@ -22,9 +22,9 @@ class TransactionService
     private $notificationService;
 
     public function __construct(
-        ITransactionRepository $repository = new TransactionRepository(), 
-        UserService $userService = new UserService(), 
-        NotificationService $notificationService = new NotificationService()
+        ITransactionRepository $repository, 
+        UserService $userService, 
+        NotificationService $notificationService
     ){
         $this->repository = $repository;
         $this->userService = $userService;
@@ -37,7 +37,7 @@ class TransactionService
 
         $service = $this->getTransactionValidatorService($user);
         $service->validate($transaction, $user);
-        
+
         $transaction = $this->repository->create($transaction);
         
         $this->notificationService->notifyTransactions($transaction);

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Domain\Exceptions\User;
+
 use Exception;
 use Throwable;
 

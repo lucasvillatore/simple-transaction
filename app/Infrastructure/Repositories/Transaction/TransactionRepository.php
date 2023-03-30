@@ -18,7 +18,7 @@ class TransactionRepository implements ITransactionRepository
 {
     private $authorizerService;
 
-    public function __construct(ExternalAuthorizerService $authorizerService = new ExternalAuthorizerService())
+    public function __construct(ExternalAuthorizerService $authorizerService)
     {
         $this->authorizerService = $authorizerService;
     }
