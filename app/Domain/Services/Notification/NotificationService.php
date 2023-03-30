@@ -10,7 +10,6 @@ use App\Domain\Entities\Notification\Messages\PayerTransactionSuccessNotificatio
 use App\Domain\Entities\Notification\Status\Failed;
 use App\Domain\Entities\Transaction\Transaction;
 use App\Infrastructure\Repositories\Notification\INotificationRepository;
-use App\Infrastructure\Repositories\Notification\NotificationRepository;
 use Illuminate\Support\Facades\Http;
 
 class NotificationService
