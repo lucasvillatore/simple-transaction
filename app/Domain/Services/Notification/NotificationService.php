@@ -18,7 +18,7 @@ class NotificationService
     private $repository;
     private $url;
 
-    public function __construct(INotificationRepository $repository = new NotificationRepository, $url)
+    public function __construct(INotificationRepository $repository, $url)
     {
         $this->repository = $repository;
         $this->url = $url;
