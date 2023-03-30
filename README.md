@@ -6,7 +6,6 @@ An API using DDD to simulate a simple transfer of values between users
 ## Features
 
 - create user
-- list users
 - create transactions
 - notify users with transactions status
 
