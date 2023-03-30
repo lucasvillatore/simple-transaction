@@ -47,3 +47,7 @@ php artisan test --coverage-html cover/
   - create business dashboards
   - create alert configurations
   - health application monitoring
+
+## TODO
+
+- create docker image 
