@@ -30,9 +30,19 @@ $ php artisan migrate
 
 To run the tests:
 
+**Unit**
+```bash
+$ vendor/bin/phpunit --testsuite Unit
+```
+
+**Integration**
+```bash
+$ vendor/bin/phpunit --testsuite Integration
+```
+
 **Coverage**
 ```bash
-php artisan test --coverage-html cover/
+$ php artisan test --coverage-html cover/
 ```
 
 ## Improvement points
