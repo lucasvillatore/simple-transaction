@@ -7,8 +7,8 @@ use App\Domain\Entities\Notification\Status\Pending;
 use App\Domain\Entities\Notification\Status\Delivered;
 use App\Domain\Entities\Notification\Messages\PayeeTransactionSuccessNotification;
 use App\Domain\Entities\Notification\Messages\PayerTransactionSuccessNotification;
+use App\Domain\Entities\Notification\Status\Failed;
 use App\Domain\Entities\Transaction\Transaction;
-use App\Domain\Exceptions\Notification\FailedToSendNotificationException;
 use App\Infrastructure\Repositories\Notification\INotificationRepository;
 use App\Infrastructure\Repositories\Notification\NotificationRepository;
 use Illuminate\Support\Facades\Http;
@@ -64,12 +64,15 @@ class NotificationService
         $response = Http::timeout(10)
                     ->post($this->url);
 
+        $status = (new Delivered)->getValue();
+
         if (!$response->successful()) {
-            throw new FailedToSendNotificationException();
+            $status = (new Failed)->getValue();
         }
+
         $this->repository->update(
             $notification->getId(), 
-            (new Delivered)->getValue()
+            $status
         );
     }
 }
