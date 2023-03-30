@@ -26,16 +26,9 @@ class NotificationRepository implements INotificationRepository
 
     public function update($id, $status)
     {
-        $notification = NotificationModel::where('id', $id)
+        NotificationModel::where('id', $id)
                         ->update([
                             'status' => $status
                         ]);
-
-        return new Notification([
-            "message" => $notification->message,
-            "userId" => $notification->user_id,
-            "status" => $notification->status,
-            "id" => $notification->id
-        ]);
     }
 }
