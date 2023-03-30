@@ -17,5 +17,4 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post("/user", [UserController::class, "create"]);
-Route::get("/user", [UserController::class, "index"]);
 Route::post("/transaction", [TransactionController::class, "create"]);

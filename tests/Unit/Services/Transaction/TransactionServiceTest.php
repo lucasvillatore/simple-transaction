@@ -7,6 +7,8 @@ use App\Domain\Entities\Transaction\Transaction;
 use App\Domain\Entities\User\Types\CommonUser;
 use App\Domain\Entities\User\Types\ShopkeeperUser;
 use App\Domain\Entities\User\User;
+use App\Domain\Exceptions\Transaction\TransactionValidatorNotImplementedException;
+use App\Domain\Exceptions\Transaction\UserHasNoBalanceException;
 use App\Domain\Services\Notification\NotificationService;
 use App\Domain\Services\Transaction\TransactionService;
 use App\Domain\Services\Transaction\Validators\ShopkeeperTransactionService;
@@ -54,7 +56,7 @@ class TransactionServiceTest extends TestCase
         self::$userService = new UserService(self::$userRepositoryMock);
         self::$repository = new TransactionRepositoryMock();
         self::$notificationRepositoryMock = new NotificationRepositoryMock();
-        self::$notificationService = new NotificationService(self::$notificationRepositoryMock, "https://webhook.site/e82c9a70-34a8-43a9-b89d-15d5029c1cc7");
+        self::$notificationService = new NotificationService(self::$notificationRepositoryMock, "http://o4d9z.mocklab.io/notify");
 
     }
     public function test_create()
@@ -72,6 +74,17 @@ class TransactionServiceTest extends TestCase
         $expected = $service->create($transaction);
 
         $this->assertEquals($expected, $transaction);
+
+        $this->expectException(UserHasNoBalanceException::class);
+        $transaction = new Transaction([
+            "value" => 10000,
+            "payer_id" => 1,
+            "payee_id" => 2
+        ]);
+
+        $transaction->setStatus((new Completed)->getValue());
+        
+        $expected = $service->create($transaction);
     }
 
 
@@ -99,6 +112,15 @@ class TransactionServiceTest extends TestCase
             'type' => 'shopkeeper'
         ]);
 
+        $userUnknown = new User([
+            'name' => 'Lucas',
+            'taxpayer_id' => '1234567890',
+            'email' => 'lucas@gmail.com',
+            'password' => 'senhaforte',
+            'balance' => 123,
+            'type' => 'unknown'
+        ]);
+
         $service = new TransactionService(
             new TransactionRepositoryMock,
             self::$userService,
@@ -113,6 +135,9 @@ class TransactionServiceTest extends TestCase
         $expected = ShopkeeperTransactionService::class;
         $received = $service->getTransactionValidatorService($userShopkeeper);
         $this->assertInstanceOf($expected, $received);
+
+        $this->expectException(TransactionValidatorNotImplementedException::class);
+        $received = $service->getTransactionValidatorService($userUnknown);
     }
 
     
