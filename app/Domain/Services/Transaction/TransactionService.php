@@ -13,7 +13,6 @@ use App\Domain\Services\Transaction\Validators\ITransactionValidator;
 use App\Domain\Services\Transaction\Validators\ShopkeeperTransactionService;
 use App\Domain\Services\Transaction\Validators\UserTransactionService;
 use App\Infrastructure\Repositories\Transaction\ITransactionRepository;
-use App\Infrastructure\Repositories\Transaction\TransactionRepository;
 
 class TransactionService
 {
@@ -48,7 +47,7 @@ class TransactionService
     public function getTransactionValidatorService(User $user): ITransactionValidator
     {
         if ($user instanceof CommonUser) {
-            return new UserTransactionService();
+            return new UserTransactionService($this->userService);
         }
 
         if ($user instanceof ShopkeeperUser) {

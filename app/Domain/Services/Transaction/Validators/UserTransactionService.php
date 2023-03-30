@@ -12,7 +12,7 @@ class UserTransactionService implements ITransactionValidator
 {
     private $service;
 
-    public function __construct(UserService $service = new UserService())
+    public function __construct(UserService $service)
     {
         $this->service = $service;
     }
