@@ -5,10 +5,11 @@ namespace App\Domain\Services\User;
 use App\Domain\Entities\User\Types\CommonUser;
 use App\Domain\Entities\User\Types\ShopkeeperUser;
 use App\Domain\Entities\User\User;
+use App\Domain\Exceptions\User\FailedToCreateUserException;
 use App\Domain\Exceptions\User\UserNotFoundException;
+use App\Domain\Exceptions\User\UserTypeNotImplementedException;
 use App\Infrastructure\Repositories\User\IUserRepository;
 use App\Infrastructure\Repositories\User\UserRepository;
-use Exception;
 
 class UserService
 {
@@ -35,7 +36,7 @@ class UserService
         $user = $this->repository->create($user);
 
         if (!$user) {
-            throw new Exception;
+            throw new FailedToCreateUserException();
         }
 
         return $user;
@@ -51,7 +52,7 @@ class UserService
                 return new CommonUser($user->toArray());
 
             default:
-                throw new Exception();
+                throw new UserTypeNotImplementedException();
         }
     }
 
